@@ -8,7 +8,7 @@
    - **Cosine Similarity**: Measures the cosine of the angle between two vectors, in this case, the query vector and document vectors, in a multi-dimensional space. It's used to determine the similarity between the query and each document, with higher values indicating greater relevance.
    
 # **Metrics:**
-   We evaluate the effectiveness of different scoring parameter configurations using the following metrics:
+   We can evaluate the effectiveness of different scoring parameter configurations using the following metrics:
    - **Mean Reciprocal rank (MRR)**: MRR is an evaluation metric used to assess the effectiveness of a search algorithm by focusing on the rank of the first relevant result. It's especially useful when the primary concern is how high the first relevant document appears in the search results. MRR is calculated as the average of the reciprocal ranks of the first relevant document for a set of queries. This metric emphasizes the importance of the top result, underlining scenarios where users are likely to consider only the first few documents.
    - **Mean Average Precision (MAP)**: MAP evaluates the quality of search results across all ranks, making it a comprehensive metric for scenarios where the entire list of retrieved documents matters. It calculates the precision of search results at each rank where a relevant document is found, averages these values for each query, and then averages those averages across all queries. This metric accounts for both the precision and recall of the search results, providing a balanced view of overall performance.
 
