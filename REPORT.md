@@ -16,8 +16,8 @@
    
 # **Methodology**
    - **Objective**: The aim is to identify the scoring parameter and preprocessing method combination that yields the highest agreement with a set of known relevant documents for a series of queries, as measured by the MRR (Mean Reciprocal Rank) and MAP (Mean Average Precision) evaluation metrics.
-   - **Evaluation Script**: `test_evaluation.py` will automate the process of running a series of experiments. It iterates through every combination of schemes (weighting scheme, preprocessing method, tokenization method) across different configurations using `modified_evaluation.py` which will output the evaluation metrics for each. The only difference between `modified_evaluation.py` and `evaluation.py` is that `modified_evaluation.py` outputs a single number (the MRR or MAP score) and no other details (like the queries it ran).
-   - **Metrics Calculation**: The `modified_evaluation.py` script will compute evaluation metrics for each configuration tested, allowing for direct comparison between them. The metrics of interest are precision, recall, F1 score, and MAP.
+   - **Evaluation Script**: `test_all_schemes.py` will automate the process of running a series of experiments. It iterates through every combination of schemes (weighting scheme, preprocessing method, tokenization method) across different configurations using `test_scheme.py` which will output the evaluation metrics for each. 
+   - **Metrics Calculation**: The `test_scheme.py` script will compute evaluation metrics for each configuration tested, allowing for direct comparison between them. The metrics of interest are precision, recall, F1 score, and MAP.
    - **Configuration Parameters**:
      1. **Preprocessing Methods**: Options for text normalization, i.e., stemming (s) or lemmatization (l).
      2. **Weighting Schemes**: Different schemes for calculating the tf-idf score
@@ -26,25 +26,25 @@
          - normalization: [none (n), cosine (c)]
    - **Experimentation Process**:
       1. `build_index.py` was ran on the `CISI_simplified` collection to create the indexes to query on
-      2. `test_evaluation.py` was ran and called to iterate over all possible scheme combinations and get MMR and MAP scores using `modified_evaluation.py`
-      3. `modified_evaluation.py` reads in all queries from the CISI dataset.
+      2. `test_all_schemes.py` was ran and called to iterate over all possible scheme combinations and get MMR and MAP scores using `test_scheme.py`
+      3. `test_scheme.py` reads in all queries from the CISI dataset.
       4. It then runs each query against the system using each combination of preprocessing method and weighting scheme.
       5. For each run, it compares the system's output with the known relevant documents and calculates the evaluation metrics.
       6. It logs the performance of each configuration in terms of the metrics calculated.
-      7. `test_evaluation.py` collects these logs and puts them into a dictionary to keep track of the schemes used
-      8. `test_evaluation.py` outputs this dictionary into an excel sheet and populates the appropriate fields with the data it collected
+      7. `test_all_schemes.py` collects these logs and puts them into a dictionary to keep track of the schemes used
+      8. `test_all_schemes.py` outputs this dictionary into an excel sheet and populates the appropriate fields with the data it collected
    - **Usage**:
    You'll need pandas and openpyxl to create and write to Excel files. import them and then run the evaluation program
-   Example command for the test_evaulation.py:
+   Example command for the test_all_schemes.py:
    ```
    python3 ./code/build_index.py CISI_simplified
    pip install pandas openpyxl
-   python3 ./code/test_evaluation.py
+   python3 ./code/test_all_schemes.py
    ```
-   This does use an external library as filling out an excel sheet manually would be very tedious, but you can run the original evaluation.py as shown below (in this example, using weighting scheme=ltc, tokenization=l, k=100, n=10, scoring=mmr)
+   This does use an external library as filling out an excel sheet manually would be very tedious, but you can run the original test_scheme.py as shown below (in this example, using weighting scheme=ltc, tokenization=l, k=100, n=10, scoring=mmr)
    ```
    python3 ./code/build_index.py CISI_simplified
-   python3 ./code/evaluation.py CISI_simplified ltc l 100 10 'mrr'
+   python3 ./code/test_scheme.py CISI_simplified ltc l 100 10 'mrr'
    ```
 
 # **Results**
